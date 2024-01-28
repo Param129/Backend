@@ -36,7 +36,7 @@ const userSchema = new Schema({
         },
         watchHistory:[
             {
-                type:Schema.types.ObjectId,
+                type:Schema.Types.ObjectId,
                 ref:"Video"
             }
         ],
@@ -54,7 +54,7 @@ const userSchema = new Schema({
 userSchema.pre("save",async function(next) {
     if(! this.isModified("password")) return next(); // if pass is not modified just return dont execute further
 
-    this.password = bcrypt.hash(this.password,10); // if password is modiefied then creae a new hash and save it.
+    this.password = await bcrypt.hash(this.password,10); // if password is modiefied then creae a new hash and save it.
     next();
 })
 
